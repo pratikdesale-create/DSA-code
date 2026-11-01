@@ -5,11 +5,20 @@
 
 float percentage[MAX];
 
+/* Swap Function */
+void swap(int a, int b)
+{
+    float temp;
+
+    temp = percentage[a];
+    percentage[a] = percentage[b];
+    percentage[b] = temp;
+}
+
 /* Selection Sort */
 void selectionSort(int n)
 {
     int i, j, minIndex;
-    float temp;
 
     for(i = 0; i < n - 1; i++)
     {
@@ -18,14 +27,11 @@ void selectionSort(int n)
         for(j = i + 1; j < n; j++)
         {
             if(percentage[j] < percentage[minIndex])
-            {
                 minIndex = j;
-            }
         }
 
-        temp = percentage[i];
-        percentage[i] = percentage[minIndex];
-        percentage[minIndex] = temp;
+        if(minIndex != i)
+            swap(i, minIndex);
     }
 }
 
@@ -33,18 +39,13 @@ void selectionSort(int n)
 void bubbleSort(int n)
 {
     int i, j;
-    float temp;
 
     for(i = 0; i < n - 1; i++)
     {
         for(j = 0; j < n - i - 1; j++)
         {
             if(percentage[j] > percentage[j + 1])
-            {
-                temp = percentage[j];
-                percentage[j] = percentage[j + 1];
-                percentage[j + 1] = temp;
-            }
+                swap(j, j + 1);
         }
     }
 }
@@ -57,12 +58,10 @@ void display(int n)
     printf("\nSorted Percentages:\n");
 
     for(i = 0; i < n; i++)
-    {
         printf("%.2f\n", percentage[i]);
-    }
 }
 
-/* Display Top Five Percentages */
+/* Display Top Five */
 void displayTopFive(int n)
 {
     int i, count = 0;
@@ -90,7 +89,7 @@ int main()
         return 0;
     }
 
-    printf("\nEnter student percentages:\n");
+    printf("Enter percentages:\n");
 
     for(i = 0; i < n; i++)
     {
@@ -109,12 +108,12 @@ int main()
     {
         case 1:
             selectionSort(n);
-            printf("\nUsing Selection Sort");
+            printf("\nUsing Selection Sort\n");
             break;
 
         case 2:
             bubbleSort(n);
-            printf("\nUsing Bubble Sort");
+            printf("\nUsing Bubble Sort\n");
             break;
 
         default:
